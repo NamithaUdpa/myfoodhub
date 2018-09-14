@@ -1,0 +1,148 @@
+<% include ../../partials/header.ejs %>
+<link rel="stylesheet" type="text/css" href="/stylesheets/recipes.css">
+</head>
+<body class="recipes-background">
+    <% include ../../partials/navbar.ejs %>
+    <div id="recipes-page" class="float">
+        <div id="search-container" class="col-lg-7">
+            <div id="text-search-box">
+                <h2>Search for Recipes!</h2>
+                <div class="search-box">
+                     <input id="recipe-search-input" name="recipe-search-input" class="input-width" type="text" placeholder="Keyword">
+                    <div class="icon-styling icon-width">
+                        <input type="submit" class="fa fa-search btn-light" value="&#xf002" id="search-btn">
+                    </div>
+                </div>
+                <div><label>Health* : </label>
+                    <select id="health-option">
+                        <option value="balanced">Balanced</option>
+                        <option value="high-protein">High Protein</option>
+                        <option value="low-fat">Low Fat</option>
+                        <option value="low-carb">Low Carb</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="sugar-consious">Low Sugar</option>
+                        <option value="peanut-free" selected="selected">Peanut Free</option>
+                        <option value="tree-nut-free">Tree Nut Free</option>
+                        <option value="alcohol-free">Alcohol Free</option>
+                    </select>
+                </div>
+                <div><label>Calorie Range* : </label><input type="number" id="calories-start" value="300"> to <input type="number" id="calories-end" value="700"></div>
+                <div>*Required</div>
+            </div>
+            <div id="details" class="float margin-top">
+                <div id="recipe-results" class="container-bk col-lg-6">
+                    <h4><strong>Recipe Search results</strong></h4>
+                    <ul>
+                    <div id="append-recipe"></div>
+                    </ul>
+                </div>
+                <div id="recipe-ingredients" class="container-bk col-lg-6">
+                        <h4><strong>Recipe Ingredients</strong></h4>
+                    <ul>
+                        <div id="append-ingredient"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="shopping-list" class="container-bk col-lg-5">
+           <h3> Shopping List </h3>
+           <div class="list">
+            <ul>
+            </ul>
+            </div>
+            <button class="btn btn-success" onclick="saveList()" type="submit" ><i class="fa fa-shopping-cart"></i> Save List</button>
+        </div>
+    </div>
+<div id="edamam-badge" data-color="transparent"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
+<script type="text/javascript">
+   jQuery(function($){
+       $("#search-btn").click( function(event){
+          console.log("CLICKED"); 
+          var url = "https://api.edamam.com/search";
+          $.ajax({
+              url: url,
+              data:{
+                "q": $("#recipe-search-input").val(),
+                "app_id": "79e05c7e",
+                "app_key": "68fbdbcfd0dd6e811ce3cf7d359b3536",
+                "from":"0",
+                "to" :"4",
+                "calories":$("#calories-start").val() +"-"+ $("#calories-end").val(),
+                "health":$("#health-option").val()
+              },
+              dataType:"json",
+              success: function(data){
+                  //var list = new Array();
+                  $(".recipe-item").remove();
+                  $(".ingredient-item").remove();
+                  for(var i=0;i<4;i++){
+                  $("#append-recipe").append("<li class='recipe-item'>"+data["hits"][i]["recipe"]["label"]+"<span hidden>"+"</span></li>");
+                  $(".recipe-item span").val(data["hits"][i]["recipe"]["uri"].slice(-32).slice(-32));
+                  //$(".recipe-item").click(showIngredients);
+                  }
+                  $(".recipe-item").click(showIngredients);
+              },
+              error: function(err){console.log(err);}
+          });
+        });
+       function showIngredients(){
+            console.log("clicked");
+            var url = "https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_"+$(this).find("span").val();
+            $(".ingredient-item").remove();
+            $.ajax({
+                url:url,
+                data:{
+                    "app_id": "79e05c7e",
+                "app_key": "68fbdbcfd0dd6e811ce3cf7d359b3536"},
+                dataType:"json",
+                success: function(data){
+                    //$(".ingredient-item").remove();
+                    data[0]["ingredientLines"].forEach(function(ingredient){
+                    $("#append-ingredient").append("<li class = 'ingredient-item'>"+ingredient+"</li>");
+                });
+                    $(".ingredient-item").click(addToList);
+                },
+                error: function(err){console.log(err);}
+            });
+       }
+    }); 
+
+var shoppingList = document.querySelector(".list ul");    
+    function addToList(){
+        console.log("added");
+        var name = this.textContent;
+        var para = document.createElement("li");
+        var node = document.createTextNode(name);
+        var input = document.createElement("input");
+        input.type ="hidden";
+        input.name = "ingredient";
+        input.value = name;
+        para.appendChild(node);
+        shoppingList.appendChild(para);
+        shoppingList.appendChild(input);
+        List.push(name);
+        hiddenInput.value = List;
+        alert("HIDDEN : "+hiddenInput.value);
+}
+
+function saveList(){
+    //get list name from user
+    var listName = window.prompt("Name of Shopping List");
+    //create hidden input in the form to submit to the db
+    var listNameInput = document.createElement("input");
+    listNameInput.type ="hidden";
+    listNameInput.name = "listName";
+    listNameInput.value = listName;
+    shoppingList.appendChild(listNameInput);
+    //if user is logged in, keep the data in the db
+    //if the user is not logged in, remove the data in the db
+}
+</script>
+
+   </body>
+</html>

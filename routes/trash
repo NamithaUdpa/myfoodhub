@@ -1,0 +1,60 @@
+/*router.get("/ingredients/api/results", function(req,res){
+        var ingredientSearch = req.query.ingredientSearch;
+        var url = "https://api.edamam.com/api/food-database/parser?ingr=",
+            apiId = "&app_id=e511da73",
+            apiKey = "&app_key=5ed2a9a588cd106b7cb0e781f0765e0c",
+            page = "&page=1",
+            query = url+ingredientSearch+apiId+apiKey+page;
+            console.log(query);
+        request(query, function(error, response, body){
+            if(!error && response.statusCode==200){
+                var data=JSON.parse(body);
+                console.log(data);
+                res.render("pages/ingredients/ingredientsResults.ejs", {data:data, List:List});
+            }
+            console.log(response.statusCode);
+        });
+});*/
+
+//generate random recipe array
+//var randomRecipe = require("./randomRecipe.js");
+
+
+
+/*router.get("/recipes", function(req,res){
+    var data=[];
+    //generate array of random numbers
+
+    var url ="http://api.edamam.com/search?",
+        recipeQuery1 = "q=easy",
+        apiId = "&app_id=79e05c7e",
+        apiKey = "&app_key=68fbdbcfd0dd6e811ce3cf7d359b3536",
+        recipeQuery2 = "&from=1&to=4&calories=300-700&health="+randomRecipe.randomDietQueryGenerator(),
+        query = url+recipeQuery1+apiId+apiKey+recipeQuery2;
+        console.log(query);
+    request(query, function(error, response, body){
+        if(!error && response.statusCode==200){
+                data = JSON.parse(body);
+                console.log(data);
+                res.render("pages/recipes/recipes.ejs", {data:data});       
+        }
+    });
+});*/
+    
+/*router.get("/recipes/:id", function(req,res){
+    
+    //id for testing :68fbdbcfd0dd6e811ce3cf7d359b3536 (32 numbers)
+    var recipeId = req.params.id;
+    var url ="http://api.edamam.com/search?",
+        recipeIdParam = "r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_"+recipeId,
+        apiId = "&app_id=79e05c7e",
+        apiKey = "&app_key=68fbdbcfd0dd6e811ce3cf7d359b3536",
+        query = url+recipeIdParam+apiId+apiKey;
+    request(query, function(error, response, body){
+        if(!error && response.statusCode==200){
+                var data = JSON.parse(body);
+                res.render("pages/recipes/showRecipe.ejs", {data:data});
+        }
+        console.log(error);
+    });
+});*/

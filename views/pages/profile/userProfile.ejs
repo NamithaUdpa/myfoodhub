@@ -1,0 +1,34 @@
+<% include ../../partials/header.ejs %>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
+</head>
+<body>
+<% include ../../partials/navbar.ejs %>
+<div id="profile-page">
+    <div id="profile-details">
+        <div id = "profile-picture">
+            <i class="fa fa-user"></i>
+        </div>
+        <div id="username">
+            <div><%=currentUser.username%></div>
+            <% var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %>
+            <div>Birthday : <%=currentUser.birthday.getDate()+" "+months[currentUser.birthday.getMonth()]+" "+currentUser.birthday.getFullYear()%></div>
+            <div>Gender : <%=currentUser.gender%></div>
+            <div>Location : <%=currentUser.country%></div>
+        </div>
+    </div>
+    <div id="shopping-lists">
+        <h3>Shopping lists</h3>
+        <div id="shopping-list">
+            <% shoppingLists.forEach(function(list){ %>
+            <h4><%= list.listName %></h4>
+                <ul>
+                    <% list.ingredients.forEach( function(ingredient){ %>
+                    <li><%= ingredient %></li>
+                    <% }); %>
+                </ul>
+            <% }); %>
+        </div>
+    </div>
+</div>
+<% include ../../partials/footer.ejs %>
+

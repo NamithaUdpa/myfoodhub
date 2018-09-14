@@ -1,0 +1,19 @@
+<% include ../../partials/header.ejs %>
+<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+</head>
+<body class="landing-image">
+   <% include ../../partials/navbar.ejs %>
+   <div class=" landing-text-style landing-text-centre">
+        <p id="welcome">My Food Hub</p>
+        <p>Browse:</p>
+        <div class="btns">
+            <div class=" btn-size  btn btn-outline-success recipe-btn-color btn-radius-recipe">
+                <a class="btn-text" href="/recipes">Recipes</a>
+            </div>
+            <div class="btn-size btn btn-outline-warning ingredient-btn-color btn-radis-ingredient">
+                <a class="btn-text" href="/ingredients">Ingredients</a>
+            </div>
+        </div>
+    </div>
+</body>
+<% include ../../partials/footer.ejs %>

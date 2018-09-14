@@ -1,0 +1,84 @@
+.form-control:focus{
+     box-shadow:none;
+}
+.ingredient-bk-img{
+    background-image:url("/images/pooja-chaudhary-633059-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: 50% 30%;
+    height:100%;
+}
+
+.text{
+    color:white;
+}
+
+.text-padding{
+    padding-bottom: 10px;
+}
+
+/*trying to make the icon and input look like one*/
+.search-box{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    height:38px;
+
+}
+
+.input-styling{
+    flex-grow:4;
+    height:100%;
+
+}
+
+.form-control{
+    border-radius:0 !important;
+    border-right:0;
+}
+
+
+.icon-styling{
+    color:#343A40;
+    background-color:white;
+     
+    font-size:2rem;
+
+    line-height:0;
+    flex-shrink:2;
+    height:100%;
+     
+    border-width:1px 1px 1px 0px;
+    border-style:solid;
+    border-color:#ced4da;
+    border-radius:0;
+    
+    margin-bottom: 0%;
+}
+
+.results-block{
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-top:10px;
+}
+
+.cart-btn-style{
+    background: linear-gradient(#343A40, white);
+    border-color:#343A40;
+}
+.list{
+    height:60%;
+}
+/* page formatting */
+#ingredient-page{
+    margin:20px 30px;
+    height:auto;
+}
+
+#ingredient-cart{
+    background-color:rgba(255, 255, 255, 0.7);
+    /*makes the cart occupy full div*/
+    height:auto;
+    width:100%;
+    /*gives padding*/
+    padding:10px;
+}

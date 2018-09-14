@@ -1,0 +1,61 @@
+h2{
+    color:white;
+}
+.recipes-background{
+    background:linear-gradient(#000, transparent),
+    url("/images/chinh-le-duc-264152-unsplash.jpg");
+     background-repeat:no-repeat;
+     background-size: cover;
+     height:100%;
+
+}
+.container-bk{
+     background-color:rgba(255, 255, 255, 0.7);
+}
+
+.float{
+display:flex;
+flex-wrap:wrap;
+}
+.icon-styling{
+    color:#343A40;
+    background-color:white;
+     
+    font-size:2rem;
+
+    line-height:0;
+    flex-shrink:2;
+    height:100%;
+     
+    border-width:1px 1px 1px 0px;
+    border-style:solid;
+    border-color:#ced4da;
+    border-radius:0;
+}
+.search-box{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    height:38px;
+    width:100%;
+    margin-bottom:10px;
+
+}
+.input-width{
+    width:93%;
+    padding:0;
+}
+.icon-width{
+    width:7%;
+    padding:0;
+    margin:0;
+}
+.margin-top{
+    margin-top: 10px;
+}
+#recipes-page{
+    padding:20px 30px;
+}
+#text-search-box{
+    color : white;
+}

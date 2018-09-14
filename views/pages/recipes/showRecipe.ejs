@@ -1,0 +1,22 @@
+<% include ../../partials/header.ejs%>
+<link rel="stylesheet" type="text/css" href="/stylesheets/showRecipe.css">
+</head>
+<body>
+<% include ../../partials/navbar.ejs%>
+<div class="row">
+        <div class="col-lg-6">
+            <img src="<%=data[0]["image"]%>">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="title-container"><%=data[0]["label"]%></h1>
+            <% data[0]["ingredientLines"].forEach(function(ingredient){ %>
+                <p><i class="fa fa-plus btn"></i><%=ingredient%></p>
+            <% }); %>
+            <div>
+                <a href="<%=data[0]["url"]%>" class="btn btn-secondary">Instructions</a>
+            </div>
+            <div class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add Ingredients to Cart</div>
+        </div>
+</div>
+
+<% include ../../partials/footer.ejs%>

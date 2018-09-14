@@ -1,0 +1,74 @@
+
+a{
+    color:white;
+    text-decoration:none;
+}
+
+a:hover{
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.landing-image{
+    background: linear-gradient(#000,transparent),
+     url("https://foodrevolution.org/wp-content/uploads/2018/03/blog-featured_healthy_foods-20180306.jpg");
+     background-repeat:no-repeat;
+     background-size: cover;
+     height:100%;
+}
+
+.landing-text-centre{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    height:100%;
+    
+
+}
+
+.landing-text-style{
+    /*text size and font type*/
+    color:#fff;
+    /*text-wrap*/
+    word-break: break-all;
+}
+
+.btns{
+    height:100px;
+    width:200px;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+}
+
+.btn-size{
+    width:50%;
+}
+
+.btn-radius-recipe{
+    border-radius:50% 0 0 50%;
+}
+.btn-radis-ingredient{
+    border-radius:0 50% 50% 0;
+}
+
+.recipe-btn-color{
+    background: radial-gradient(transparent, #28A745);
+}
+
+.ingredient-btn-color{
+    background: radial-gradient(transparent, #FFC107);
+}
+
+.btn-text{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#welcome{
+    font-size: 7em;
+    -webkit-text-stroke: 3px black;
+}

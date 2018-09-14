@@ -1,0 +1,116 @@
+<% include ../../partials/header.ejs %>
+<link rel="stylesheet" type="text/css" href="/stylesheets/ingredients.css">
+</head>
+<body class="ingredient-bk-img">
+    <% include ../../partials/navbar.ejs %>
+    <div class="row" id="ingredient-page">
+        <div class="col-lg-6" id="ingredient-results">
+            <% include ./search.ejs %>
+            <div class = "results-block">
+                <div id="append-li"></div>
+            </div>
+        </div>
+        <div class="col-lg-6"id="ingredient-cart">
+            <h3>Shopping list</h3>
+            <form method="POST" action="/ingredients">
+            <div class="list">
+            <ul></ul>
+            </div>
+            <button class="btn btn-success" onclick="saveList()" type="submit" ><i class="fa fa-shopping-cart"></i> Save List</button>
+            </form>
+        </div>
+    </div>
+ <div id="edamam-badge" data-color="transparent"></div>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script type="text/javascript">
+var button = document.querySelectorAll(".cart-item");
+var form = document.querySelector("form");
+var shoppingList = document.querySelector(".list ul");
+var hiddenInput = document.querySelectorAll(".list ul input");
+var List = new Array();
+
+//load api results
+jQuery(function($){
+    $("#search-btn").click(function(event){
+        console.log("Clicked");
+        var url = "https://api.edamam.com/api/food-database/parser";
+        $.ajax({
+            url:url,
+            type: "GET",
+            async: true,
+            data: {
+                "ingr" : $("#ingredientSearch").val(),
+            
+                "app_id": "e511da73",
+            
+                "app_key": "5ed2a9a588cd106b7cb0e781f0765e0c",
+            
+                "page" : "1"
+            //query = url+ingredientSearch+apiId+apiKey+page;
+            },
+            dataType: "json",
+            success: function(data){
+                        $(".item").remove();
+                        for(var i =0;i<5;i++){
+                            var foodBrand; 
+                            if(data["hints"][i]["food"]["brand"]){
+                                    foodBrand = data["hints"][i]["food"]["brand"];
+                            }else{
+                                foodBrand="";
+                            }
+                            
+                            $("#append-li").append("<div class='item'><button class = 'cart-btn-style' ><i class='fa fa-cart-plus'></i></button><span class='item-text'>"+
+                                data["hints"][i]["food"]["source"]+" "+
+                                foodBrand+" "+
+                                data["hints"][i]["food"]["label"]+" "+
+                                "</span></div>");
+                                console.log(data["hints"][i]["food"]["source"]);
+                        }
+                        $(".item").click(addToList);
+                    },
+            error: function(err){
+                console.log("ERROR");
+                console.log(err);
+            }
+        });
+    });
+});
+
+
+function addToList(){
+        console.log("added");
+        var name = this.textContent;
+        var para = document.createElement("li");
+        var node = document.createTextNode(name);
+        var input = document.createElement("input");
+        input.type ="hidden";
+        input.name = "ingredient";
+        input.value = name;
+        para.appendChild(node);
+        shoppingList.appendChild(para);
+        shoppingList.appendChild(input);
+        List.push(name);
+        hiddenInput.value = List;
+        alert("HIDDEN : "+hiddenInput.value);
+}
+
+function saveList(){
+    //get list name from user
+    var listName = window.prompt("Name of Shopping List");
+    //create hidden input in the form to submit to the db
+    var listNameInput = document.createElement("input");
+    listNameInput.type ="hidden";
+    listNameInput.name = "listName";
+    listNameInput.value = listName;
+    shoppingList.appendChild(listNameInput);
+    //if user is logged in, keep the data in the db
+    //if the user is not logged in, remove the data in the db
+}
+
+</script>
+<script src="https://developer.edamam.com/attribution/badge.js"></script>
+   </body>
+</html>

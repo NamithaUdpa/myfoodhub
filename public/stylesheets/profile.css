@@ -1,0 +1,31 @@
+.fa-user{
+    font-size:100px;
+    text-align: center;
+    position: relative;
+    top: 20%;
+    width:100%;
+    height:100%;
+}
+
+#profile-page{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    height:100%;
+    width:100%;
+    
+    margin:20px 30px;
+}
+#profile-details{
+    flex-grow:1;
+    margin-right:20px;
+}
+#profile-picture{
+    height:200px;
+    width:100%;
+    background-color:grey;
+    margin-bottom: 20px;
+}
+#shopping-lists{
+    flex-grow:3;
+}

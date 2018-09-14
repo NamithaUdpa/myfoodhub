@@ -1,0 +1,35 @@
+ <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+     <a class="navbar-brand" href="/"><i class="fa fa-store"></i>My Food Hub</a>
+     <div class="collapse navbar-collapse justify-content-end" id="">
+       <!--  <ul class="navbar-nav mr-auto" id="navbarText">
+            <li class="nav-item">
+                 <a class="nav-link" href="#">Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"href="#">Ingredients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"href="#">Stores</a>
+            </li>
+            </ul>
+            -->
+            
+            <ul class="navbar-nav" id="navbarText">
+            <% if(!currentUser){ %>
+            <li class="nav-item">
+                <a class="nav-link"href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"href="/register">Sign Up</a>
+            </li>
+            <% }else{ %>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile"> Welcome <%= currentUser.username %>! |</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"href="/logout">Logout</a>
+            </li>
+            <% } %>
+         </ul>
+     </div>
+    </nav>
